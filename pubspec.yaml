@@ -2,7 +2,7 @@ name: flutter_gallery
 description: A plugin that allows you to pick media both image and video.
 version: 0.0.1
 author: Olorunshola Habeeb Bayo
-homepage:
+homepage: https://github.com/habeex/flutter_gallery
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
