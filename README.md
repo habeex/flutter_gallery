@@ -6,7 +6,7 @@ A plugin that allows you to pick multiple media both image and video.
 
 ### request permission
 
-You must get the user's permission on android/ios.
+You can also request permission on android/ios but this as been handled by the plugin.
 
 ```dart
 var result = await PhotoManager.requestPermission();
@@ -66,36 +66,8 @@ Close xCode
 Rebuild your flutter project
 Now, the system albums should be displayed according to the device's language
 
-### Cache problem of iOS
-
-iOS does not directly provide APIs to access the original files of the album. The corresponding object is PHAsset,
-
-So when you want to use file or originFile, a cache file will be generated locally.
-
-So if you are sensitive to space, please delete it after using file(just iOS), and if it is only used for preview, you can consider using thumb or thumbWithSize.
-
-```dart
-
-void useEntity(AssetEntity entity) async {
-  File file = null;
-  try{
-    file = await entity.file;
-    doUpload(); // do upload
-  }finally{
-    if(Platform.isIOS){
-      file?.deleteSync();
-    }
-  }
-}
-```
 
 ## android config
-
-### Cache problem of android
-
-Because androidQ restricts the application’s ability to directly access the resource path, some large image caches will be generated. This is because: When the file/originFile attribute is used, the plugin will save a file in the cache folder and provide it to dart:io use.
-
-Fortunately, in androidP, the path attribute can be used again, but for androidQ, this is not good news, but we can use requestLegacyExternalStorage to avoid using androidQ's api, and I also recommend you to do so. See [Android Q](#android-q-android10--api-29) to add the attribute.
 
 ### about androidX
 
