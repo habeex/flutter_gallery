@@ -7,11 +7,14 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_gallery/media_grid.dart';
 import 'package:photo_manager/photo_manager.dart';
 
 class FlutterGallery {
+
+  static Future<bool> requestPermission()async{
+    return await PhotoManager.requestPermission();
+  }
 
   static Future<List<AssetEntity>> pickGallery({
     @required BuildContext context,
@@ -35,7 +38,6 @@ class FlutterGallery {
               limit: limit,
               onItemsSelected: (assets) {
                 result = assets;
-//                print("received ${assets?.length}");
                 Navigator.pop(context);
               },
             ),
