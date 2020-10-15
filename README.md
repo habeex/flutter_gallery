@@ -41,7 +41,7 @@ like next
 
 ```xml
     <key>NSPhotoLibraryUsageDescription</key>
-    <string>App requires permission to the liberay to photos and videos</string>
+    <string>App requires permission to your gallery to access photos and videos</string>
 ```
 
 xcode like image
