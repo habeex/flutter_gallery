@@ -12,18 +12,12 @@ import 'package:flutter_gallery/media_grid.dart';
 import 'package:photo_manager/photo_manager.dart';
 
 class FlutterGallery {
-  static const MethodChannel _channel =
-      const MethodChannel('flutter_gallery');
-
-  static Future<String> get platformVersion async {
-    final String version = await _channel.invokeMethod('getPlatformVersion');
-    return version;
-  }
 
   static Future<List<AssetEntity>> pickGallery({
     @required BuildContext context,
     @required String title,
     @required  Color color,
+    @required  int limit,
   }) async {
     List<AssetEntity> result;
 
@@ -38,6 +32,7 @@ class FlutterGallery {
               // CONSUME SELECTED ITEMS HERE, FOR EXAMPLE
               title: title,
               color: color,
+              limit: limit,
               onItemsSelected: (assets) {
                 result = assets;
 //                print("received ${assets?.length}");

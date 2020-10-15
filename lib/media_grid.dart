@@ -9,7 +9,8 @@ class MediaGrid extends StatefulWidget {
   final ValueChanged<List<AssetEntity>> onItemsSelected;
   final String title;
   final Color color;
-  MediaGrid({this.onItemsSelected, this.title, this.color});
+  final int limit;
+  MediaGrid({this.onItemsSelected, this.title, this.color, this.limit});
 
   @override
   _MediaGridState createState() => _MediaGridState();
@@ -66,7 +67,7 @@ class _MediaGridState extends State<MediaGrid> {
             )),
       );
 
-      List<AssetEntity> media = await albums[0].getAssetListPaged(currentPage, 60);
+      List<AssetEntity> media = albums.length > 0 ? await albums[0].getAssetListPaged(currentPage, 60) : [];
 
       for (var asset in media) {
         final thumb = await asset.thumbDataWithSize(200, 200);
@@ -159,10 +160,16 @@ class _MediaGridState extends State<MediaGrid> {
     return InkWell(
       onTap: () {
         setState(() {
-          if (selectedMedia.contains(media)) {
-            selectedMedia.remove(media);
-          } else {
-            selectedMedia.add(media);
+          if(selectedMedia.length <= widget.limit){
+            if (selectedMedia.contains(media)) {
+              selectedMedia.remove(media);
+            } else {
+              selectedMedia.add(media);
+            }
+          }else{
+            Scaffold.of(context).showSnackBar(SnackBar(
+              content: Text("Maximum of ${widget.limit}"),
+            ));
           }
         });
       },

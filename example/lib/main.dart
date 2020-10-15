@@ -54,7 +54,8 @@ class _MyHomePageState extends State<MyHomePage> {
               final _results = await FlutterGallery.pickGallery(
                 context: context,
                 title: widget?.title,
-                color: Colors.red
+                color: Colors.red,
+                  limit: 15
               );
               if (_results != null) {
                 setState(() => results = _results);
