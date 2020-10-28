@@ -160,7 +160,7 @@ class _MediaGridState extends State<MediaGrid> {
     return InkWell(
       onTap: () {
         setState(() {
-          if(selectedMedia.length <= widget.limit){
+          if(selectedMedia.length < widget.limit){
             if (selectedMedia.contains(media)) {
               selectedMedia.remove(media);
             } else {
