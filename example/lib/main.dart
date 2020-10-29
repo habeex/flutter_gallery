@@ -55,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 context: context,
                 title: widget?.title,
                 color: Colors.red,
-                  limit: 15
+                  limit: 5
               );
               if (_results != null) {
                 setState(() => results = _results);

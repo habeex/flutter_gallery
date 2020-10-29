@@ -160,16 +160,16 @@ class _MediaGridState extends State<MediaGrid> {
     return InkWell(
       onTap: () {
         setState(() {
-          if(selectedMedia.length < widget.limit){
-            if (selectedMedia.contains(media)) {
-              selectedMedia.remove(media);
-            } else {
+          if (selectedMedia.contains(media)) {
+            selectedMedia.remove(media);
+          } else {
+            if(selectedMedia.length < widget.limit){
               selectedMedia.add(media);
+            }else{
+              Scaffold.of(context).showSnackBar(SnackBar(
+                content: Text("Maximum of ${widget.limit}"),
+              ));
             }
-          }else{
-            Scaffold.of(context).showSnackBar(SnackBar(
-              content: Text("Maximum of ${widget.limit}"),
-            ));
           }
         });
       },
@@ -207,17 +207,16 @@ class _MediaGridState extends State<MediaGrid> {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20 / 2),
+                      borderRadius: BorderRadius.circular(20),
                       child: Container(
                         width: 25,
                           height: 25,
                           color: widget.color,
                           child: Center(
-                            child: Text(
-                              "$selectedPosition",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ))),
+                            child: Icon(Icons.check, color: Colors.white)
+//                            Text("$selectedPosition", style: TextStyle(color: Colors.white),),
+                          ))
+                  ),
                 ),
               ),
             ],
