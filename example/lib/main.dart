@@ -55,7 +55,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 context: context,
                 title: widget?.title,
                 color: Colors.red,
-                  limit: 5
+                limit: 5,
+                maximumFileSize: 100 //Size in megabyte
               );
               if (_results != null) {
                 setState(() => results = _results);

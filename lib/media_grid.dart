@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:photo_manager/photo_manager.dart';
@@ -10,7 +11,8 @@ class MediaGrid extends StatefulWidget {
   final String title;
   final Color color;
   final int limit;
-  MediaGrid({this.onItemsSelected, this.title, this.color, this.limit});
+  int maximumFileSize;
+  MediaGrid({this.onItemsSelected, this.title, this.color, this.limit, this.maximumFileSize});
 
   @override
   _MediaGridState createState() => _MediaGridState();
@@ -158,12 +160,17 @@ class _MediaGridState extends State<MediaGrid> {
 
   Widget mediaItem(MediaOption media, {int selectedPosition}) {
     return InkWell(
-      onTap: () {
+      onTap: () async{
+        double size = await formatBytes(await media.asset.file);
         setState(() {
           if (selectedMedia.contains(media)) {
             selectedMedia.remove(media);
           } else {
-            if(selectedMedia.length < widget.limit){
+            if(widget.maximumFileSize  != null && size > (widget.maximumFileSize ?? 0)) {
+              Scaffold.of(context).showSnackBar(SnackBar(
+                content: Text("Maximum file size of ${widget.maximumFileSize ?? 0}"),
+              ));
+            } else if(selectedMedia.length < widget.limit){
               selectedMedia.add(media);
             }else{
               Scaffold.of(context).showSnackBar(SnackBar(
@@ -224,5 +231,11 @@ class _MediaGridState extends State<MediaGrid> {
         ],
       ),
     );
+  }
+
+  Future<double> formatBytes(File file) async{
+    int bytes = file.lengthSync();
+    if (bytes <= 0) return 0;
+    return bytes / 1048576;
   }
 }
