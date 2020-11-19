@@ -27,7 +27,9 @@ import 'package:photo_manager/photo_manager.dart';
 final _results = await FlutterGallery.pickGallery(
                 context: context,
                 title: widget?.title,
-                color: Colors.red
+                color: Colors.red,
+                limit: 5,
+                maximumFileSize: 100 //Maximum File Size in megabyte
               );
 ```
 
