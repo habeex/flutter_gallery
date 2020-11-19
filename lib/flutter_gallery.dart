@@ -21,6 +21,7 @@ class FlutterGallery {
     @required String title,
     @required  Color color,
     @required  int limit,
+    int maximumFileSize, // file size
   }) async {
     List<AssetEntity> result;
 
@@ -36,6 +37,7 @@ class FlutterGallery {
               title: title,
               color: color,
               limit: limit,
+              maximumFileSize: maximumFileSize,
               onItemsSelected: (assets) {
                 result = assets;
                 Navigator.pop(context);
